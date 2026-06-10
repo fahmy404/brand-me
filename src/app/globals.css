@@ -1,0 +1,359 @@
+@import "tailwindcss";
+
+/* ============================================================
+   BRANDME — PREMIUM DESIGN SYSTEM
+   ============================================================ */
+
+:root {
+  --green:        #7BC600;
+  --green-dim:    rgba(123,198,0,0.15);
+  --black:        #050505;
+  --off-black:    #0a0a0a;
+  --white:        #ffffff;
+  --grey:         rgba(255,255,255,0.45);
+  --grey-dim:     rgba(255,255,255,0.1);
+  --border:       rgba(255,255,255,0.08);
+
+  /* Spacing */
+  --section-y:    120px;
+
+  /* Typography */
+  --font-main:    var(--font-space-grotesk, "Space Grotesk", sans-serif);
+  --font-arabic:  var(--font-cairo, "Cairo", sans-serif);
+}
+
+/* ── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; }
+
+body {
+  background: var(--black);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(123, 198, 0, 0.05), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(123, 198, 0, 0.04), transparent 40%);
+  color: var(--white);
+  font-family: var(--font-main);
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.65;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: rgba(123,198,0,0.2); color: #fff; }
+
+/* ── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar        { width: 2px; }
+::-webkit-scrollbar-track  { background: var(--black); }
+::-webkit-scrollbar-thumb  { background: var(--green); border-radius: 1px; }
+
+/* ── Layout ────────────────────────────────────────── */
+.section {
+  padding: var(--section-y) 0;
+}
+.wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+}
+
+@media (max-width: 1024px) { :root { --section-y: 100px; } }
+@media (max-width:  768px) {
+  :root { --section-y: 80px; }
+  body { cursor: auto; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ── Typography ────────────────────────────────────── */
+.t-hero {
+  font-size: clamp(64px, 10vw, 120px);
+  font-weight: 800;
+  letter-spacing: -0.05em; /* Tighter for Apple feel */
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.t-title {
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+.t-statement {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.t-sub {
+  font-size: clamp(24px, 3.5vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.t-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.t-body {
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.6; /* Slightly tighter body for crispness */
+  color: var(--grey);
+  letter-spacing: -0.01em;
+}
+
+/* ── Cursor ────────────────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+}
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(123,198,0,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s ease, height 0.35s ease, border-color 0.35s ease;
+}
+.cursor-ring.--expanded {
+  width: 64px; height: 64px;
+  border-color: var(--green);
+}
+.cursor-label {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99997;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+.cursor-label.--visible { opacity: 1; }
+
+/* ── Film grain ────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9990;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* ── Global Animated Pulse ─────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(123, 198, 0, 0.03) 0%, transparent 80%);
+  animation: pulseGreenGlobal 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGreenGlobal {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+/* ── Section label line ────────────────────────────── */
+.label-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: clamp(3rem, 5vw, 5rem);
+}
+.label-line::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--green);
+  flex-shrink: 0;
+}
+
+/* ── BrandMe Arc (Logo Motif) ──────────────────────── */
+.arc-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+/* ── Animations ────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(105%); }
+  to   { transform: translateY(0%);   }
+}
+@keyframes marqueeL {
+  from { transform: translateX(0%); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marqueeR {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0%); }
+}
+@keyframes pulseGreen {
+  0%, 100% { opacity: 0.06; }
+  50%       { opacity: 0.14; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes scaleIn {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Reveal (IntersectionObserver) ─────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1.visible { transition-delay: 0.08s; }
+.reveal-delay-2.visible { transition-delay: 0.16s; }
+.reveal-delay-3.visible { transition-delay: 0.24s; }
+.reveal-delay-4.visible { transition-delay: 0.32s; }
+
+/* Word clip reveal */
+.word-clip { overflow: hidden; display: inline-block; }
+.word-inner {
+  display: inline-block;
+  animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Magnetic button ───────────────────────────────── */
+.mag-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 40px;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: none;
+  overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
+  width: fit-content;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  will-change: transform;
+}
+.mag-btn:hover {
+  transform: scale(1.03);
+}
+.mag-btn--primary {
+  background: var(--green);
+  color: var(--black);
+}
+.mag-btn--primary:hover {
+  box-shadow: 0 0 40px rgba(123,198,0,0.3);
+}
+.mag-btn--outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--border);
+}
+.mag-btn--outline:hover {
+  border-color: rgba(123,198,0,0.4);
+  color: var(--green);
+  background: rgba(123,198,0,0.05);
+}
+
+/* Premium Inputs */
+.premium-input {
+  width: 100%;
+  min-height: 56px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 0 24px;
+  font-size: 16px;
+  color: var(--white);
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+}
+.premium-input:focus {
+  border-color: var(--green);
+  background: rgba(123,198,0,0.05);
+  box-shadow: 0 0 0 4px rgba(123,198,0,0.1);
+}
+textarea.premium-input {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  resize: vertical;
+}
+
+/* ── Arabic ────────────────────────────────────────── */
+.arabic {
+  font-family: var(--font-arabic);
+  direction: rtl;
+  letter-spacing: 0; /* Arabic usually shouldn't have tight letter-spacing */
+}
+
+/* Fix magnetic button in Arabic so text doesn't overflow */
+.mag-btn.arabic {
+  padding: 0 36px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Ensure proper spacing for Arabic headings */
+.t-heading.arabic, .t-title.arabic {
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+/* ── Scrollbar for horizontal sections ─────────────── */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ── Preloader ─────────────────────────────────────── */
+.preloader-exit {
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
